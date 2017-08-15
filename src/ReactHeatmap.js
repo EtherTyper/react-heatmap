@@ -1,4 +1,5 @@
 import React, {Component} from 'react'
+import PropTypes from 'prop-types'
 import ReactDOM from 'react-dom'
 import Heatmap from 'heatmapjs/build/heatmap.js'
 
@@ -11,7 +12,8 @@ class ReactHeatmap extends Component {
 
 	componentDidMount() {
 		this.heatmap = Heatmap.create({
-		  container: ReactDOM.findDOMNode(this)
+		  container: ReactDOM.findDOMNode(this),
+		  ...this.props.configObject
 		});
 		this.setData(this.props.max, this.props.data);
 	}
@@ -52,15 +54,17 @@ class ReactHeatmap extends Component {
 }
 
 ReactHeatmap.propTypes = {
-	max : React.PropTypes.number,
-	data : React.PropTypes.array,
-	unit : React.PropTypes.string
+	max : PropTypes.number,
+	data : PropTypes.array,
+	unit : PropTypes.string,
+	configObject : PropTypes.object
 }
 
 ReactHeatmap.defaultProps = {
 	max: 5,
 	data: [],
-	unit: 'percent'
+	unit: 'percent',
+	configObject: {}
 }
 
 export default ReactHeatmap
